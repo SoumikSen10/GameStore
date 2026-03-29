@@ -5,12 +5,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddValidation();
 
-var connString = "Data Source=GameStore.db";
-
-builder.Services.AddSqlite<GameStoreContext>(connString);
+builder.AddGameStoreDb();
 
 var app = builder.Build();
 
 app.MapGamesEndpoints();
+app.MapGenresEndpoints();
+
+app.MigrateDb();
 
 app.Run();
